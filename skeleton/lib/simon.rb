@@ -11,8 +11,12 @@ class Simon
 
   def play
     until @game_over
-
+      if take_turn == false #returns false when user input wrong seq
+        @game_over = true
+      end
     end
+    game_over_message
+    reset_game
   end
 
   def take_turn
@@ -24,7 +28,6 @@ class Simon
       if @seq[i] == user_seq
         round_success_message
       else
-        game_over_message
         return false
       end
       i += 1
@@ -33,6 +36,7 @@ class Simon
   end
 
   def show_sequence
+    @sequence_length.times { add_random_color }
     @seq.each do |color| 
       p color
       sleep(1)
@@ -56,6 +60,8 @@ class Simon
   end
 
   def reset_game
-
+    @sequence_length = 1
+    @game_over = false
+    @seq = []
   end
 end
